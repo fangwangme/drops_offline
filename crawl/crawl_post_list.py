@@ -5,14 +5,15 @@ from lxml import html
 import cPickle
 import time
 
-
 origin_url = 'http://drops.wooyun.org/'
 
 
 def crawl_all_post_links():
-
+    """
+    抓取 wooyun drops 上面的所有文章链接
+    :return: 
+    """
     crawl_flag = True
-
     page_num = 1
     link_list = []
     while crawl_flag:
@@ -31,7 +32,6 @@ def crawl_all_post_links():
             link_list += each_page_links
 
         page_num += 1
-        crawl_flag = False
         time.sleep(5)
 
     with open('../data/links.pickle', 'wb') as f:
@@ -48,7 +48,6 @@ def parse_links(content):
     """
 
     each_page_link = []
-
     try:
         ele = html.fromstring(content)
     except Exception, e:

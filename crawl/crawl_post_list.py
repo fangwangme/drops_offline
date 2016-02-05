@@ -4,6 +4,7 @@ import requests
 from lxml import html
 import cPickle
 import time
+import os
 
 origin_url = 'http://drops.wooyun.org/'
 
@@ -11,7 +12,7 @@ origin_url = 'http://drops.wooyun.org/'
 def crawl_all_post_links():
     """
     抓取 wooyun drops 上面的所有文章链接
-    :return: 
+    :return:
     """
     crawl_flag = True
     page_num = 1
@@ -34,7 +35,16 @@ def crawl_all_post_links():
         page_num += 1
         time.sleep(5)
 
-    with open('../data/links.pickle', 'wb') as f:
+
+    data_path = '../data/'
+    if not os.path.exists(data_path):
+        os.makedirs(data_path)
+
+    links_path = '../data/links/'
+    if not os.path.exists(links_path):
+        os.makedirs(links_path)
+
+    with open('../data/links/links.pickle', 'wb') as f:
         cPickle.dump(link_list, f)
 
     return

@@ -1,0 +1,6 @@
+*.pyc
+*.html
+.DS_Store
+.git
+.pickle
+.idea

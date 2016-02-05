@@ -2,6 +2,7 @@
 *.html
 .DS_Store
 .git
-.pickle
+*.pickle
 .idea
 *.md
+*.png   

@@ -18,7 +18,6 @@ def crawl_all_post_links():
     while crawl_flag:
         crawl_url = origin_url + 'page/' + str(page_num)
         print crawl_url
-
         r = requests.get(crawl_url)
         content = r.text.encode('utf-8')
 
@@ -32,10 +31,11 @@ def crawl_all_post_links():
             link_list += each_page_links
 
         page_num += 1
+        crawl_flag = False
         time.sleep(5)
 
-    with open('../data/links.pickle', 'w') as f:
-        cPickle.dump(f, link_list)
+    with open('../data/links.pickle', 'wb') as f:
+        cPickle.dump(link_list, f)
 
     return
 
@@ -57,7 +57,7 @@ def parse_links(content):
 
     try:
         link_ele_list = ele.find_class('entry-title')
-        each_page_link = [each_ele.xpath('a/@href') for each_ele in link_ele_list]
+        each_page_link = [str(each_ele.xpath('a/@href')[0]) for each_ele in link_ele_list]
     except Exception, e:
         print 'parse links failed, error : %s' % str(e)
 
